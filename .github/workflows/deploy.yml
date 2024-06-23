@@ -35,8 +35,8 @@ jobs:
     - name: Restore dependencies
       run: R -e "renv::restore()"
 
-    - name: Snapshot dependencies
-      run: R -e "renv::snapshot()"
+    - name: Create .rscignore
+      run: echo "/renv.lock" > .rscignore
 
     - name: Check renv status
       run: R -e "renv::status()"
