@@ -38,9 +38,6 @@ jobs:
     - name: Create .rscignore
       run: echo "/renv.lock" > .rscignore
 
-    - name: Check renv status
-      run: R -e "renv::status()"
-
     - name: Install additional packages
       run: |
         R -e "install.packages('rsconnect')"
