@@ -38,7 +38,7 @@ jobs:
     - name: Initialize renv and install necessary packages
       run: |
         R -e "renv::init(bare = TRUE)"
-        R -e "renv::install(c('shiny', 'sf', 'leaflet', 'viridis', 'dplyr', 'rsconnect'))"
+        R -e "renv::install(c('shiny', 'sf', 'leaflet', 'viridis', 'dplyr', 'rsconnect', 'blockCV'))"
 
     - name: Configure renv exclusions and snapshot
       run: |
