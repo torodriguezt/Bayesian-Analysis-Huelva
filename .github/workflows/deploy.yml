@@ -38,6 +38,9 @@ jobs:
     - name: Create .rscignore
       run: echo "/renv.lock" > .rscignore
 
+    - name: Verify .rscignore content
+      run: cat .rscignore
+
     - name: Install additional packages
       run: |
         R -e "install.packages('rsconnect')"
