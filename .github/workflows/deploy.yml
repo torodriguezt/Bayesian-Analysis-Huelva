@@ -18,8 +18,8 @@ jobs:
 
     - name: Install R packages
       run: |
-        install.packages('rsconnect')
-        install.packages('shiny')
+        R -e "install.packages('rsconnect')"
+        R -e "install.packages('shiny')"
         
     - name: Deploy ShinyApp
       env:
