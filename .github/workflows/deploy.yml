@@ -27,8 +27,8 @@ jobs:
         SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
         SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
       run: |
-        library(rsconnect)
-        rsconnect::setAccountInfo(name=Sys.getenv('SHINYAPPS_NAME'),
-                                  token=Sys.getenv('SHINYAPPS_TOKEN'),
-                                  secret=Sys.getenv('SHINYAPPS_SECRET'))
-        rsconnect::deployApp()
+        Rscript -e "library(rsconnect); \
+                    rsconnect::setAccountInfo(name=Sys.getenv('SHINYAPPS_NAME'), \
+                                              token=Sys.getenv('SHINYAPPS_TOKEN'), \
+                                              secret=Sys.getenv('SHINYAPPS_SECRET')); \
+                    rsconnect::deployApp()"
