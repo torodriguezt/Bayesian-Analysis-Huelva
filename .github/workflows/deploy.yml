@@ -35,11 +35,8 @@ jobs:
     - name: Restore dependencies
       run: R -e "renv::restore()"
 
-    - name: Create .rscignore
-      run: echo "/renv.lock" > .rscignore
-
-    - name: Verify .rscignore content
-      run: cat .rscignore
+    - name: Check renv status
+      run: R -e "status <- renv::status(); if (!status$synchronized) stop('Library and lockfile are out of sync. Please run renv::restore() or renv::snapshot().')"
 
     - name: Install additional packages
       run: |
@@ -52,4 +49,4 @@ jobs:
                     rsconnect::setAccountInfo(name=Sys.getenv('SHINYAPPS_NAME'), \
                                               token=Sys.getenv('SHINYAPPS_TOKEN'), \
                                               secret=Sys.getenv('SHINYAPPS_SECRET')); \
-                    rsconnect::deployApp()"
+                    rsconnect::deployApp()"    
