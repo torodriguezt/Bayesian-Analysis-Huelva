@@ -40,7 +40,7 @@ jobs:
     - name: Remove INLA and configure renv exclusions
       run: |
         R -e "if ('INLA' %in% rownames(installed.packages())) remove.packages('INLA')"
-        R -e "options(renv.config.exclusions = c('INLA'))"
+        R -e "renv::settings$ignored.packages('INLA')"
 
     - name: Snapshot renv environment
       run: R -e "renv::snapshot()"
@@ -54,4 +54,4 @@ jobs:
                     rsconnect::setAccountInfo(name=Sys.getenv('SHINYAPPS_NAME'), \
                                               token=Sys.getenv('SHINYAPPS_TOKEN'), \
                                               secret=Sys.getenv('SHINYAPPS_SECRET')); \
-                    rsconnect::deployApp()"  
+                    rsconnect::deployApp()"
