@@ -32,18 +32,13 @@ jobs:
     - name: Install renv
       run: R -e "install.packages('renv')"
 
-    - name: Remove INLA and initialize renv
-      run: |
-        R -e "remove.packages('INLA')"
-        R -e "renv::init()"
+    - name: Remove INLA if installed
+      run: R -e "if ('INLA' %in% rownames(installed.packages())) remove.packages('INLA')"
 
-    - name: Install necessary packages
+    - name: Initialize renv and install necessary packages
       run: |
-        R -e "renv::install('shiny')"
-        R -e "renv::install('sf')"
-        R -e "renv::install('leaflet')"
-        R -e "renv::install('viridis')"
-        R -e "renv::install('dplyr')"
+        R -e "renv::init(bare = TRUE)"
+        R -e "renv::install(c('shiny', 'sf', 'leaflet', 'viridis', 'dplyr', 'rsconnect'))"
 
     - name: Configure renv exclusions and snapshot
       run: |
@@ -53,15 +48,10 @@ jobs:
     - name: Check renv status
       run: R -e "status <- renv::status(); if (!status$synchronized) stop('Library and lockfile are out of sync. Please run renv::restore() or renv::snapshot().')"
 
-    - name: Install additional packages
-      run: |
-        R -e "install.packages('rsconnect')"
-        R -e "install.packages('shiny')"
-
     - name: Deploy Shiny App
       run: |
         Rscript -e "library(rsconnect); \
                     rsconnect::setAccountInfo(name=Sys.getenv('SHINYAPPS_NAME'), \
                                               token=Sys.getenv('SHINYAPPS_TOKEN'), \
                                               secret=Sys.getenv('SHINYAPPS_SECRET')); \
-                    rsconnect::deployApp()"
+                    rsconnect::deployApp()"  
