@@ -32,18 +32,18 @@ jobs:
     - name: Install renv
       run: R -e "install.packages('renv')"
 
-    - name: Remove INLA if installed
-      run: R -e "if ('INLA' %in% rownames(installed.packages())) remove.packages('INLA')"
-
     - name: Initialize renv and install necessary packages
       run: |
         R -e "renv::init(bare = TRUE)"
         R -e "renv::install(c('shiny', 'sf', 'leaflet', 'viridis', 'dplyr', 'rsconnect', 'blockCV'))"
 
-    - name: Configure renv exclusions and snapshot
+    - name: Remove INLA and configure renv exclusions
       run: |
+        R -e "if ('INLA' %in% rownames(installed.packages())) remove.packages('INLA')"
         R -e "options(renv.config.exclusions = c('INLA'))"
-        R -e "renv::snapshot()"
+
+    - name: Snapshot renv environment
+      run: R -e "renv::snapshot()"
 
     - name: Check renv status
       run: R -e "status <- renv::status(); if (!status$synchronized) stop('Library and lockfile are out of sync. Please run renv::restore() or renv::snapshot().')"
