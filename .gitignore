@@ -12,6 +12,9 @@
 !/.gitignore
 !/.gitattributes
 
+# Documentation
+!/README.md
+
 # Pipeline (v3)
 !/main.R
 !/R/**/*.R
