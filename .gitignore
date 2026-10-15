@@ -1,85 +1,29 @@
 # =============================================================================
 # .gitignore - Bayesian Analysis Huelva
+# Whitelist: only the code and data needed to reproduce the results with
+# source("main.R"). Everything else stays local.
 # =============================================================================
 
-# -----------------------------------------------------------------------------
-# CONFIDENTIAL DATA - DO NOT UPLOAD
-# -----------------------------------------------------------------------------
-# Real/original data (confidential)
-data/raw/
+# Ignore everything, but keep descending into directories
+*
+!*/
 
-# Data simulation script (generates synthetic data locally)
-simulate_data.R
+# Git configuration
+!/.gitignore
+!/.gitattributes
 
-# -----------------------------------------------------------------------------
-# R / RStudio
-# -----------------------------------------------------------------------------
-.Rproj.user/
-.Rhistory
-.RData
-.Ruserdata
-*.Rproj
+# Pipeline (v3)
+!/main.R
+!/R/**/*.R
 
-# knitr and R Markdown cache
-*_cache/
-/cache/
+# Scripts not called by main.R
+/R/overnight.R
+/R/All_Models/prepare_F3_reference.R
+/R/All_Models/model_F3_stan.R
+/R/All_Models/model_factors_stan.R
+/R/Results/Table_stan_vs_inla.R
+/R/utils/gp_prediction.R
 
-# Temporary R files
-*.tmp
-*.temp
-
-# -----------------------------------------------------------------------------
-# Raster files (large)
-# -----------------------------------------------------------------------------
-*.tif
-Raster/
-
-# -----------------------------------------------------------------------------
-# Stan compiled files
-# -----------------------------------------------------------------------------
-*.rds
-*.stan.cpp
-*.stan.hpp
-
-# -----------------------------------------------------------------------------
-# Output files (can be regenerated)
-# -----------------------------------------------------------------------------
-results/figures/*.png
-results/figures/*.pdf
-results/figures/*.jpg
-results/models/*.rds
-results/models/*.rda
-results/predictions/*.rds
-results/predictions/*.csv
-results/reports/*.html
-results/reports/*.pdf
-
-# -----------------------------------------------------------------------------
-# OS generated files
-# -----------------------------------------------------------------------------
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-*~
-
-# -----------------------------------------------------------------------------
-# IDE / Editor files
-# -----------------------------------------------------------------------------
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# -----------------------------------------------------------------------------
-# Logs and temporary files
-# -----------------------------------------------------------------------------
-*.log
-logs/
-*.bak
-*.backup
-tmp/
-temp/
+# Input data read by R/Data_preparation/config.R
+!/data/raw/**
+/data/raw/**/*.xlsx
